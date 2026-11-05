@@ -11,10 +11,10 @@ function Products() {
         <div className="col-3">
 
           {/* Cards */}
-          <Card>
+          <Card className='shadow p-2'>
             <Card.Img style={{height:'250px'}} variant="top" src="perfume.png" />
             <Card.Body className='text-center'>
-              <Card.Title>Card Title</Card.Title>
+              <Card.Title>Perfume</Card.Title>
               <Link to={`/products/:id`} className='btn btn-info'>View More</Link>
             </Card.Body>
           </Card>
