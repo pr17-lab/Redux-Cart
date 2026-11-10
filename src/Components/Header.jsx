@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import Badge from 'react-bootstrap/Badge';
 import { searchProduct } from '../redux/slices/productSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 
 function Header({ InsideProduct }) {
+  const userWishlist = useSelector(state => state.WishlistReducer)
   const dispatch = useDispatch()
   return (
 
@@ -29,7 +30,7 @@ function Header({ InsideProduct }) {
           <Link to={'/wishlist'} className='text-light text-decoration-none fw-bold ms-5'>
             <FontAwesomeIcon icon={faHeart} className='btn btn-warning me-2' />
             Wishlist
-            <Badge pill bg="secondary ms-2">10</Badge>
+            <Badge pill bg="secondary ms-2">{userWishlist?.length}</Badge>
           </Link>
 
           <Link to={'/cart'} className='text-light text-decoration-none fw-bold ms-5'>

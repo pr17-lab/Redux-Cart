@@ -34,13 +34,13 @@ const productSlice = createSlice({
         builder.addCase(getAllProducts.pending, (state, action) => {
             state.loading = true
             state.allProducts = []
-            state.dummyAllProducts = action.payload
+            state.dummyAllProducts = []
             state.error = ""
         })
         builder.addCase(getAllProducts.rejected, (state, action) => {
             state.loading = false
             state.allProducts = []
-            state.dummyAllProducts = action.payload
+            state.dummyAllProducts = []
             state.error = "API call failed"
         })
 
