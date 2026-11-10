@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from './Components/Footer'
-import Header from './Components/Header'
 import PageNotFound from './Pages/PageNotFound'
 import Products from './Pages/Products'
 import View from './Pages/View'
@@ -12,7 +11,7 @@ function App() {
 
   return (
     <>
-    <Header/>
+    
       <Routes>
         <Route path='/' element={<Products/>} />
         <Route path='/products/:id' element={<View/>} />

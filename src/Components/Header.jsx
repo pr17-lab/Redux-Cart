@@ -7,9 +7,13 @@ import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import Badge from 'react-bootstrap/Badge';
+import { searchProduct } from '../redux/slices/productSlice'
+import { useDispatch } from 'react-redux'
 
-function Header() {
+function Header({ InsideProduct }) {
+  const dispatch = useDispatch()
   return (
+
     <Navbar expand="lg" className="bg-danger fixed-top">
       <Container>
         <Navbar.Brand as={Link} to="/" className="text-light text-decoration-none">
@@ -18,9 +22,9 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <input type="text" className="form-control" placeholder="search your products" />
-          </Nav>
+          <Nav.Item className="ms-auto">
+            {InsideProduct && <input onChange={e=>dispatch(searchProduct(e.target.value))}  type="text" className="form-control" placeholder="search your products" />}
+          </Nav.Item>
 
           <Link to={'/wishlist'} className='text-light text-decoration-none fw-bold ms-5'>
             <FontAwesomeIcon icon={faHeart} className='btn btn-warning me-2' />
