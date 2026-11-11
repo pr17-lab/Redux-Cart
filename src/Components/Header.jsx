@@ -12,6 +12,7 @@ import { useDispatch,useSelector } from 'react-redux'
 
 function Header({ InsideProduct }) {
   const userWishlist = useSelector(state => state.WishlistReducer)
+  const userCart = useSelector(state => state.cartReducer)
   const dispatch = useDispatch()
   return (
 
@@ -36,7 +37,7 @@ function Header({ InsideProduct }) {
           <Link to={'/cart'} className='text-light text-decoration-none fw-bold ms-5'>
             <FontAwesomeIcon icon={faCartShopping} className='btn btn-primary me-2' />
             Cart 
-            <Badge pill bg="secondary ms-2">10</Badge>
+            <Badge pill bg="secondary ms-2">{userCart?.length}</Badge>
           </Link>
 
         </Navbar.Collapse>

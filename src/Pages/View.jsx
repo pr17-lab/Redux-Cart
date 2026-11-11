@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
 import { addToWishlist } from '../redux/slices/wishListSlice'
+import { addCart } from '../redux/slices/cartSlice'
 
 
 function View() {
@@ -29,30 +30,49 @@ function View() {
 
   const handleWishlist = () => {
 
-  // Check whether product already exists
-  const existingItem = userWishlist?.find(
-    item => item?.id == product?.id
-  )
+    // Check whether product already exists
+    const existingItem = userWishlist?.find(
+      item => item?.id == product?.id
+    )
 
-  if (existingItem) {
-    Swal.fire({
-      title: "Sorry",
-      text: "Product already in wishlist",
-      icon: "error",
-      confirmButtonText: "OK"
-    })
+    if (existingItem) {
+      Swal.fire({
+        title: "Sorry",
+        text: "Product already in wishlist",
+        icon: "error",
+        confirmButtonText: "OK"
+      })
+    }
+    else {
+      dispatch(addToWishlist(product))
+
+      Swal.fire({
+        title: "Success",
+        text: "Product added to wishlist",
+        icon: "success",
+        confirmButtonText: "OK"
+      })
+    }
   }
-  else {
-    dispatch(addToWishlist(product))
+
+  const userCart = useSelector(state => state.cartReducer)
+
+  const handleCart = () => {
+
+    // Check whether product already exists
+    const existingItem = userCart?.find(
+      item => item?.id == product?.id
+    )
+    dispatch(addCart(product))
 
     Swal.fire({
       title: "Success",
-      text: "Product added to wishlist",
+      text: existingItem ? `${existingItem.title} quantity is incremented` : `Product added to your cart`,
       icon: "success",
       confirmButtonText: "OK"
     })
+
   }
-}
 
   return (
     <>
@@ -67,7 +87,7 @@ function View() {
 
             <div className='d-flex justify-content-evenly mt-5' >
               <button onClick={handleWishlist} className='btn btn-warning'>ADD TO WISHLIST</button>
-              <button className='btn btn-primary'>ADD TO CART</button>
+              <button onClick={handleCart} className='btn btn-primary'>ADD TO CART</button>
             </div>
 
 
@@ -81,7 +101,7 @@ function View() {
             <h4 className='fw-bold'>{product?.description}</h4>
             <h5 className='fw-bold'>Client Review</h5>
             {
-              product?.reviews?.map((item,index) => (
+              product?.reviews?.map((item, index) => (
                 <div key={index} className='border rounded shadow p-2 shadow my-5'>
                   <p><span className='fw-bolder'>Name : {item?.reviewerName} </span>{item?.comment}</p>
                   <p>Rating : {item?.rating} <FontAwesomeIcon icon={faStar} className='text-danger' /></p>
